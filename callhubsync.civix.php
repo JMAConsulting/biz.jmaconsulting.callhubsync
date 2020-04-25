@@ -1,4 +1,5 @@
 <?php
+  require_once "callhubsync.constants.php";
 
 // AUTO-GENERATED FILE -- Civix may overwrite any changes made to this file
 

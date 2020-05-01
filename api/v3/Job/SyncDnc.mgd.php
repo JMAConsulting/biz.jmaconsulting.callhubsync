@@ -15,7 +15,7 @@ return array (
       'description' => 'One way sync of all do not call lists from CallHub to CiviCRM',
       'run_frequency' => 'Daily',
       'api_entity' => 'Job',
-      'api_action' => 'SyncDnc',
+      'api_action' => 'sync_dnc',
       'parameters' => '',
     ),
   ),

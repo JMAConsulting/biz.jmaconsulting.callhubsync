@@ -13,8 +13,8 @@ use CRM_Callhubsync_BAO_Callhubsync as E;
  *
  * @throws API_Exception
  */
-function civicrm_api3_job_SyncDnc($params) {
-  $endpoint = "https://api.callhub.io/v1/dnc_cdontacts/";
+function civicrm_api3_job_sync_dnc($params) {
+  $endpoint = "https://api.callhub.io/v1/dnc_contacts/";
   $dncContacts = E::callAPI($endpoint);
   E::saveDnc($dncContacts);
   $nextPage = $dncContacts['next'];
@@ -25,10 +25,10 @@ function civicrm_api3_job_SyncDnc($params) {
   }
   if (!empty($dncContacts['count'])) {
     $message = ts('Synced %1 contacts on all do not call lists from CallHub.', [1 => $dncContacts['count']]);
-    return civicrm_api3_create_success($message, $params, 'Job', 'SyncDnc');
+    return civicrm_api3_create_success($message, $params, 'Job', 'sync_dnc');
   }
   else {
     $message = ts('No contacts found on do not call lists');
-    return civicrm_api3_create_success($message, $params, 'Job', 'SyncDnc');
+    return civicrm_api3_create_success($message, $params, 'Job', 'sync_dnc');
   }
 }

@@ -32,10 +32,12 @@
           $phone = ltrim($result['phone_number'], 1);
           // Check database for match on phone number.
           // We do the check on phone_numeric to bypass any formatting that CiviCRM allows on the phone number field.
-          $cid = CRM_Core_DAO::singleValueQuery("SELECT contact_id FROM civicrm_phone WHERE phone_numeric = %1", [1 => [$phone, 'Integer']]);
-          if (!empty($cid)) {
-            // Match is found, proceed to set do not phone to true.
-            civicrm_api3('Contact', 'create', ['id' => $cid, 'do_not_phone' => 1]);
+          $cids = CRM_Core_DAO::executeQuery("SELECT contact_id FROM civicrm_phone WHERE phone_numeric = %1", [1 => [$phone, 'Integer']])->fetchAll();
+          if (!empty($cids)) {
+            foreach ($cids as $cid) {
+              // Match is found, proceed to set do not phone to true.
+              civicrm_api3('Contact', 'create', ['id' => $cid['contact_id'], 'do_not_phone' => 1]);
+            }
           }
         }
       }
